@@ -12,7 +12,7 @@ return [
                 "name" => "headless",
                 "description" => "",
                 "sqlObjectCondition" => "",
-                "modificationDate" => 1622646439,
+                "modificationDate" => 1622755003,
                 "path" => NULL
             ],
             "schema" => [
@@ -219,33 +219,29 @@ return [
                                     "isOperator" => FALSE
                                 ],
                                 [
+                                    "isOperator" => TRUE,
                                     "attributes" => [
-                                        "attribute" => "Date",
                                         "label" => "Date",
-                                        "dataType" => "datetime",
-                                        "layout" => [
-                                            "fieldtype" => "datetime",
-                                            "queryColumnType" => "bigint(20)",
-                                            "columnType" => "bigint(20)",
-                                            "defaultValue" => NULL,
-                                            "useCurrentDate" => FALSE,
-                                            "name" => "Date",
-                                            "title" => "Date",
-                                            "tooltip" => "",
-                                            "mandatory" => FALSE,
-                                            "noteditable" => FALSE,
-                                            "index" => FALSE,
-                                            "locked" => FALSE,
-                                            "style" => "",
-                                            "permissions" => NULL,
-                                            "datatype" => "data",
-                                            "relationType" => FALSE,
-                                            "invisible" => FALSE,
-                                            "visibleGridView" => FALSE,
-                                            "visibleSearch" => FALSE
+                                        "type" => "operator",
+                                        "class" => "DateFormatter",
+                                        "format" => "H:i:s",
+                                        "childs" => [
+                                            [
+                                                "isOperator" => FALSE,
+                                                "attributes" => [
+                                                    "label" => "Date",
+                                                    "type" => "value",
+                                                    "class" => "DefaultValue",
+                                                    "attribute" => "Date",
+                                                    "dataType" => "datetime",
+                                                    "childs" => [
+
+                                                    ]
+                                                ]
+                                            ]
                                         ]
                                     ],
-                                    "isOperator" => FALSE
+                                    "key" => "#60b946bac65b8"
                                 ],
                                 [
                                     "attributes" => [

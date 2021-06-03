@@ -7,16 +7,17 @@ import Content from './Content';
 import Meta from './Meta';
 import Tags from './Tags';
 import styles from './Post.module.scss';
-import type { Node } from '../../types';
 
-type Props = {
-  post: Node
-};
 
-const Post = ({ post }: Props) => {
-  const { html } = post;
-  const { tagSlugs, slug } = post.fields;
-  const { tags, title, date } = post.frontmatter;
+const Post = ( post ) => {
+  console.log(post);
+  const { Text: html } = post;
+  const { slug } = post;
+  const { tags, Title: title} = post;
+
+  const date=new Date(post.Date);
+
+  console.log(date);
 
   return (
     <div className={styles['post']}>
@@ -28,14 +29,14 @@ const Post = ({ post }: Props) => {
 
       <div className={styles['post__footer']}>
         <Meta date={date} />
-        {tags && tagSlugs && <Tags tags={tags} tagSlugs={tagSlugs} />}
+        {/* { tags && <Tags tags={tags}  />} */}
         <Author />
       </div>
 
       <div className={styles['post__comments']}>
-        <Comments postSlug={slug} postTitle={post.frontmatter.title} />
+        <Comments postSlug={slug} postTitle={title} />
       </div>
-    </div>
+    </div> 
   );
 };
 

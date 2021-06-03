@@ -1,7 +1,7 @@
 // @flow strict
 import React from 'react';
 import { Link } from 'gatsby';
-import  { Edges } from '../../types';
+import type { Edges } from '../../types';
 import styles from './Feed.module.scss';
 
 type Props = {

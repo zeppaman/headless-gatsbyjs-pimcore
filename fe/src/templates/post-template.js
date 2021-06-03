@@ -4,43 +4,50 @@ import { graphql } from 'gatsby';
 import Layout from '../components/Layout';
 import Post from '../components/Post';
 import { useSiteMetadata } from '../hooks';
-import type { MarkdownRemark } from '../types';
 
-type Props = {
-  data: {
-    markdownRemark: MarkdownRemark
-  }
-};
 
-const PostTemplate = ({ data }: Props) => {
+
+const PostTemplate = ({ data }) => {
+  console.log(data);
   const { title: siteTitle, subtitle: siteSubtitle } = useSiteMetadata();
-  const { frontmatter } = data.markdownRemark;
-  const { title: postTitle, description: postDescription = '', socialImage } = frontmatter;
-  const metaDescription = postDescription || siteSubtitle;
-  const socialImageUrl = socialImage;
+  const  post=data.pimcore.getPostListing.edges[0].node;
+  const {
+  title: postTitle,
+  description: metaDescription,  
+  } =post;
+
+  const socialImageUrl=post.socialImage.fullpath;
 
   return (
     <Layout title={`${postTitle} - ${siteTitle}`} description={metaDescription} socialImage={socialImageUrl} >
-      <Post post={data.markdownRemark} />
+      <Post post={post} />
     </Layout>
   );
 };
 
 export const query = graphql`
-  query PostBySlug($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      html
-      fields {
-        slug
-        tagSlugs
-      }
-      frontmatter {
-        date
-        description
-        tags
-        title
-        
+  query PostBySlug($filter: String!) {
+    pimcore {
+      getPostListing(filter: $filter ) {
+        edges {
+          node {
+            Draft
+            Text
+            Title
+            tags {
+              name
+              id
+            }
+            classname
+            description
+            id
+            slug
+            socialImage {
+              fullpath
+            }
+            
+          }
+        }
       }
     }
   }

@@ -27,48 +27,80 @@ const createPages = async ({ graphql, actions }) => {
     component: path.resolve('./src/templates/categories-list-template.js')
   });
 
-  // Posts and pages from markdown
-  const result = await graphql(`
-    {
-      allMarkdownRemark(
-        filter: { frontmatter: { draft: { ne: true } } }
-      ) {
+  
+  // Pages
+  const resultPage = await graphql(`
+  {
+    pimcore {
+      getPageListing {
         edges {
           node {
-            frontmatter {
-              template
-            }
-            fields {
-              slug
-            }
+            id
+            slug
+            classname
           }
         }
       }
     }
+  }
   `);
 
-  const { edges } = result.data.allMarkdownRemark;
-
-  _.each(edges, (edge) => {
-    if (_.get(edge, 'node.frontmatter.template') === 'page') {
+const edgesPage  = resultPage.data.pimcore.getPageListing.edges;
+console.info(resultPage.data.pimcore.getPageListing.edges[0]);
+console.info(edgesPage);
+_.each(edgesPage, (edge) => {
+  console.info(edge);
+    if (_.get(edge, 'node.classname') === 'Page') {
+      
+      console.info("CREATING Page"+edge.node.slug)
       createPage({
-        path: edge.node.fields.slug,
+        path: edge.node.slug,
         component: path.resolve('./src/templates/page-template.js'),
-        context: { slug: edge.node.fields.slug }
+        context: { 
+          slug:  edge.node.slug,
+          filter: `{"slug":"${edge.node.slug}"}`
+        }
       });
-    } else if (_.get(edge, 'node.frontmatter.template') === 'post') {
-      createPage({
-        path: edge.node.fields.slug,
-        component: path.resolve('./src/templates/post-template.js'),
-        context: { slug: edge.node.fields.slug }
-      });
-    }
-  });
+    }});
+  
 
-  // Feeds
-  await createTagsPages(graphql, actions);
-  await createCategoriesPages(graphql, actions);
-  await createPostsPages(graphql, actions);
+     // Pages
+  const resultPost = await graphql(`
+  {
+    pimcore {
+      getPostListing {
+        edges {
+          node {
+            slug,
+            classname
+          }
+        }
+      }
+    }
+  }
+  `);
+
+const edgesPost  = resultPost.data.pimcore.getPostListing.edges;
+console.info(edgesPost);
+
+_.each(edgesPost, (edge) => {
+    if (_.get(edge, 'node.classname') === 'Post') {
+      console.info(edge);
+      console.info("CREATING Post "+edge.node.slug)
+      createPage({
+        path: edge.node.slug,
+        component: path.resolve('./src/templates/post-template.js'),
+        context: { 
+          slug:  edge.node.slug,
+          filter: `{"slug":"${edge.node.slug}"}`
+        }
+      });
+    }});
+
+  // // Feeds
+  // await createTagsPages(graphql, actions);
+  // await createCategoriesPages(graphql, actions);
+  // await createPostsPages(graphql, actions);
 };
 
 module.exports = createPages;

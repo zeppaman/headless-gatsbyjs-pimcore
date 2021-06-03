@@ -15,15 +15,14 @@ module.exports = {
     author: siteConfig.author
   },
   plugins: [
-    `gatsby-plugin-flow`,
-      {
+    {
       resolve: "gatsby-source-graphql",
       options: {
-        // This type will contain remote schema Query type
-        typeName: "getPageListing",
-        // This is the field under which it's accessible
+        // Arbitrary name for the remote schema Query type
+        typeName: "remotepimcore",
+        // Field under which the remote schema will be accessible. You'll use this in your Gatsby query
         fieldName: "pimcore",
-        // URL to query from
+        // Url to query from
         url: "http://backend/pimcore-graphql-webservices/headless?apikey=3f0211ccb5a2889957680360438e5676",
       },
     },
@@ -55,61 +54,61 @@ module.exports = {
         path: `${__dirname}/static/css`
       }
     },
-    // {
-    //   resolve: 'gatsby-plugin-feed',
-    //   options: {
-    //     query: `
-    //       {
-    //         site {
-    //           siteMetadata {
-    //             site_url: url
-    //             title
-    //             description: subtitle
-    //           }
-    //         }
-    //       }
-    //     `,
-    //     feeds: [{
-    //       serialize: ({ query: { site, allMarkdownRemark } }) => (
-    //         allMarkdownRemark.edges.map((edge) => ({
-    //           ...edge.node.frontmatter,
-    //           description: edge.node.frontmatter.description,
-    //           date: edge.node.frontmatter.date,
-    //           url: site.siteMetadata.site_url + edge.node.fields.slug,
-    //           guid: site.siteMetadata.site_url + edge.node.fields.slug,
-    //           custom_elements: [{ 'content:encoded': edge.node.html }]
-    //         }))
-    //       ),
-    //       query: `
-    //           {
-    //             allMarkdownRemark(
-    //               limit: 1000,
-    //               sort: { order: DESC, fields: [frontmatter___date] },
-    //               filter: { frontmatter: { template: { eq: "post" }, draft: { ne: true } } }
-    //             ) {
-    //               edges {
-    //                 node {
-    //                   html
-    //                   fields {
-    //                     slug
-    //                   }
-    //                   frontmatter {
-    //                     title
-    //                     date
-    //                     template
-    //                     draft
-    //                     description
-    //                   }
-    //                 }
-    //               }
-    //             }
-    //           }
-    //         `,
-    //       output: '/rss.xml',
-    //       title: siteConfig.title
-    //     }]
-    //   }
-    // },
+    {
+      resolve: 'gatsby-plugin-feed',
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                site_url: url
+                title
+                description: subtitle
+              }
+            }
+          }
+        `,
+        feeds: [{
+          serialize: ({ query: { site, allMarkdownRemark } }) => (
+            allMarkdownRemark.edges.map((edge) => ({
+              ...edge.node.frontmatter,
+              description: edge.node.frontmatter.description,
+              date: edge.node.frontmatter.date,
+              url: site.siteMetadata.site_url + edge.node.fields.slug,
+              guid: site.siteMetadata.site_url + edge.node.fields.slug,
+              custom_elements: [{ 'content:encoded': edge.node.html }]
+            }))
+          ),
+          query: `
+              {
+                allMarkdownRemark(
+                  limit: 1000,
+                  sort: { order: DESC, fields: [frontmatter___date] },
+                  filter: { frontmatter: { template: { eq: "post" }, draft: { ne: true } } }
+                ) {
+                  edges {
+                    node {
+                      html
+                      fields {
+                        slug
+                      }
+                      frontmatter {
+                        title
+                        date
+                        template
+                        draft
+                        description
+                      }
+                    }
+                  }
+                }
+              }
+            `,
+          output: '/rss.xml',
+          title: siteConfig.title
+        }]
+      }
+    },
     {
       resolve: 'gatsby-transformer-remark',
       options: {
@@ -140,26 +139,15 @@ module.exports = {
         ]
       }
     },
-   
-   
-    {
-      resolve: `gatsby-plugin-postcss`,
-      options: {
-        cssLoaderOptions: {
-          exportLocalsConvention: false,
-          namedExport: false,
-        },
-      },
-    },
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
-    // 'gatsby-plugin-netlify',
-    // {
-    //   resolve: 'gatsby-plugin-netlify-cms',
-    //   options: {
-    //     modulePath: `${__dirname}/src/cms/index.js`
-    //   }
-    // },
+    'gatsby-plugin-netlify',
+    {
+      resolve: 'gatsby-plugin-netlify-cms',
+      options: {
+        modulePath: `${__dirname}/src/cms/index.js`
+      }
+    },
     {
       resolve: 'gatsby-plugin-google-gtag',
       options: {
@@ -178,41 +166,31 @@ module.exports = {
     //           siteMetadata {
     //             siteUrl: url
     //           }
-    //         },
-    //         pimcore {
-    //             getPageListing {
-    //               edges {
-    //                 node {
-    //                   id,
-    //                   slug
-    //                 }
-    //               }
+    //         }
+    //         allSitePage(
+    //           filter: {
+    //             path: { regex: "/^(?!/404/|/404.html|/dev-404-page/)/" }
+    //           }
+    //         ) {
+    //           edges {
+    //             node {
+    //               path
     //             }
-    //             getPostListing {
-    //               edges {
-    //                 node {
-    //                   slug,
-    //                   id
-    //                 }
-    //               }
-    //             }
-    //           }   
+    //           }
+    //         }
     //       }
     //     `,
     //     output: '/sitemap.xml',
-    //     resolvePages: ({
-    //       allSitePage: { nodes: allPages },
-    //       allWpContentNode: { nodes: allWpNodes },
-    //     }) => {
-    //       console.log("DEBUG");
-    //       console.log(data);
-    //       return data.getPageListing.edges;
-    //     },
-    //     serialize: ({ site, pages })  => pages.map((edge) => ({
-    //         url: site.siteMetadata.siteUrl + edge.node.slug,
-    //         changefreq: 'daily',
-    //         priority: 0.7
-    //       }))
+    //     serialize: ({ site, allSitePage }) => { 
+    //       console.log(allSitePage);
+    //       console.info("SERIALIZE!!");
+    //       return pimcore.edges.map((edge) => ({
+    //       url: site.siteMetadata.siteUrl + edge.node.path,
+    //       changefreq: 'daily',
+    //       priority: 0.7
+    //     }))
+    //   }
+    
     //   }
     // },
     {
@@ -259,16 +237,24 @@ module.exports = {
     },
     'gatsby-plugin-catch-links',
     'gatsby-plugin-react-helmet',
-    
-    // {
-    //   resolve: '@sentry/gatsby',
-    //   options: {
-    //     dsn: process.env.SENTRY_DSN,
-    //     tracesSampleRate: 1
-    //   }
-    // },
-    // 'gatsby-plugin-flow',
-    'gatsby-plugin-optimize-svgs',
-   
+    {
+      resolve: 'gatsby-plugin-sass',
+      options: {
+        implementation: require('sass'),
+        postCssPlugins: [...postCssPlugins],
+        cssLoaderOptions: {
+          camelCase: false
+        }
+      }
+    },
+    {
+      resolve: '@sentry/gatsby',
+      options: {
+        dsn: process.env.SENTRY_DSN,
+        tracesSampleRate: 1
+      }
+    },
+    'gatsby-plugin-flow',
+    'gatsby-plugin-optimize-svgs'
   ]
 };

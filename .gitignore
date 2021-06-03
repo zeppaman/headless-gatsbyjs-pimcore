@@ -1,12 +1,17 @@
 node_modules
 .cache
 public
-node_modules_
-.cache_
-public_
+
 
 be/var/*
 !be/var/.gitkeep
 !be/var/classes/
 be/tmp/*
-be/vendor/*
+be/vendor/**
+vendor/**
+be/vendor
+fe/__public/*
+fe/ode_modules
+fe/.cache
+fe/public
+fe/__public/**

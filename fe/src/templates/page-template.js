@@ -7,19 +7,20 @@ import Page from '../components/Page';
 import { useSiteMetadata } from '../hooks';
 import type { MarkdownRemark } from '../types';
 
-type Props = {
-  data: {
-    markdownRemark: MarkdownRemark
-  }
-};
 
-const PageTemplate = ({ data }: Props) => {
+
+
+const PageTemplate = ({ data} ) => {
+  const  page=data.pimcore.getPageListing.edges[0].node;
   const { title: siteTitle, subtitle: siteSubtitle } = useSiteMetadata();
-  const { html: pageBody } = data.markdownRemark;
-  const { frontmatter } = data.markdownRemark;
-  const { title: pageTitle, description: pageDescription = '', socialImage } = frontmatter;
-  const metaDescription = pageDescription || siteSubtitle;
-  const socialImageUrl = socialImage;
+
+  const { 
+    Title: pageTitle,
+    description:metaDescription,   
+    Body: pageBody
+  } =page;
+
+ const socialImageUrl=page.socialImage.fullpath;
 
   return (
     <Layout title={`${pageTitle} - ${siteTitle}`} description={metaDescription} socialImage={socialImageUrl} >
@@ -32,18 +33,23 @@ const PageTemplate = ({ data }: Props) => {
 };
 
 export const query = graphql`
-  query PageBySlug($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      html
-      frontmatter {
-        title
-        date
-        description
-        
+query PageBySlug($filter: String!){
+  pimcore {
+    getPageListing(filter: $filter ) {
+      edges {
+        node {
+          id
+          Title
+          Body
+          slug
+          socialImage {
+            fullpath
+          }
+        }
       }
     }
   }
+}
 `;
 
 export default PageTemplate;
