@@ -4,3 +4,9 @@ public
 node_modules_
 .cache_
 public_
+
+be/var/*
+!be/var/.gitkeep
+!be/var/classes/
+be/tmp/*
+be/vendor/*
