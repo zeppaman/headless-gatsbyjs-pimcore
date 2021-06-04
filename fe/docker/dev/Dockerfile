@@ -8,3 +8,4 @@ RUN apt -y  update  &&\
  npm install -g gatsby-cli &&\
  gatsby --version
 
+WORKDIR /usr/share/nginx/html/

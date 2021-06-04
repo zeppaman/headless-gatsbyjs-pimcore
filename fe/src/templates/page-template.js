@@ -11,7 +11,7 @@ import type { MarkdownRemark } from '../types';
 
 
 const PageTemplate = ({ data} ) => {
-  const  page=data.pimcore.getPageListing.edges[0].node;
+  const  page=data.pimcore.getPage;
   const { title: siteTitle, subtitle: siteSubtitle } = useSiteMetadata();
 
   const { 
@@ -33,11 +33,9 @@ const PageTemplate = ({ data} ) => {
 };
 
 export const query = graphql`
-query PageBySlug($filter: String!){
+query PageBySlug($id: Int!){
   pimcore {
-    getPageListing(filter: $filter ) {
-      edges {
-        node {
+    getPage(id: $id) {
           id
           Title
           Body
@@ -47,8 +45,6 @@ query PageBySlug($filter: String!){
           }
         }
       }
-    }
-  }
 }
 `;
 

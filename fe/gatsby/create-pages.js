@@ -37,7 +37,8 @@ const createPages = async ({ graphql, actions }) => {
           node {
             id
             slug
-            classname
+            classname,
+            id
           }
         }
       }
@@ -58,7 +59,8 @@ _.each(edgesPage, (edge) => {
         component: path.resolve('./src/templates/page-template.js'),
         context: { 
           slug:  edge.node.slug,
-          filter: `{"slug":"${edge.node.slug}"}`
+          filter: `{"slug":"${edge.node.slug}"}`,
+          id: `{"id":"${edge.node.id}"}`
         }
       });
     }});
@@ -72,7 +74,8 @@ _.each(edgesPage, (edge) => {
         edges {
           node {
             slug,
-            classname
+            classname,
+            id
           }
         }
       }
@@ -92,7 +95,8 @@ _.each(edgesPost, (edge) => {
         component: path.resolve('./src/templates/post-template.js'),
         context: { 
           slug:  edge.node.slug,
-          filter: `{"slug":"${edge.node.slug}"}`
+          filter: `{"slug":"${edge.node.slug}"}`,
+          id: `{"id":"${edge.node.id}"}`
         }
       });
     }});

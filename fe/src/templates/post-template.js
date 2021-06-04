@@ -10,7 +10,7 @@ import { useSiteMetadata } from '../hooks';
 const PostTemplate = ({ data }) => {
   console.log(data);
   const { title: siteTitle, subtitle: siteSubtitle } = useSiteMetadata();
-  const  post=data.pimcore.getPostListing.edges[0].node;
+  const  post=data.pimcore.getPost;
   const {
   title: postTitle,
   description: metaDescription,  
@@ -26,31 +26,20 @@ const PostTemplate = ({ data }) => {
 };
 
 export const query = graphql`
-  query PostBySlug($filter: String!) {
-    pimcore {
-      getPostListing(filter: $filter ) {
-        edges {
-          node {
-            Draft
-            Text
-            Title
-            tags {
-              name
-              id
-            }
-            classname
-            description
-            id
-            slug
-            socialImage {
-              fullpath
-            }
-            
-          }
+    query PostBySlug($id: Int!)  {
+      pimcore {
+        getPost(id: $id) {
+          Draft
+          Text
+          Title
+          classname
+          date
+          description
+          id
+          slug
         }
       }
     }
-  }
 `;
 
 export default PostTemplate;
