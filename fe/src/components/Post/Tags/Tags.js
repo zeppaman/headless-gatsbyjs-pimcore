@@ -4,22 +4,34 @@ import { Link } from 'gatsby';
 import styles from './Tags.module.scss';
 
 type Props = {
-  tags: string[],
-  tagSlugs: string[]
+  tags: []
 };
 
-const Tags = ({ tags, tagSlugs }: Props) => (
+const Tags = ({ tags }: Props) => {
+console.info(tags)  ;
+const tagKeys=Object.keys(tags);
+
+return (
+<div>
   <div className={styles['tags']}>
+    TAGS
     <ul className={styles['tags__list']}>
-      {tagSlugs && tagSlugs.map((slug, i) => (
-        <li className={styles['tags__list-item']} key={tags[i]}>
-          <Link to={slug} className={styles['tags__list-item-link']}>
-            {tags[i]}
-          </Link>
+      {tagKeys.map((key, i) => (
+     
+        <li className={styles['tags__list-item']} key={tags[key].id}>
+         
+         
+
+         <Link to={"/tags"+tags[key].path} className={styles['tags__list-item-link']}>
+         {tags[key].name}
+        </Link> 
         </li>
       ))}
     </ul>
   </div>
-);
+  </div>
+)};
 
 export default Tags;
+
+

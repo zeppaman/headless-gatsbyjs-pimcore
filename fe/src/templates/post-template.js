@@ -8,7 +8,7 @@ import { useSiteMetadata } from '../hooks';
 
 
 const PostTemplate = ({ data }) => {
-  console.log(data);
+  
   const { title: siteTitle, subtitle: siteSubtitle } = useSiteMetadata();
   const  post=data.pimcore.getPost;
   const {
@@ -36,7 +36,16 @@ export const query = graphql`
           date
           description
           id
-          slug
+          slug,
+          socialImage {
+            fullpath
+          },
+          tags
+          {
+            id,
+            name,
+            path
+          }
         }
       }
     }

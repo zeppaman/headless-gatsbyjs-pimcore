@@ -12,7 +12,7 @@ return [
                 "name" => "headless",
                 "description" => "",
                 "sqlObjectCondition" => "",
-                "modificationDate" => 1622755003,
+                "modificationDate" => 1623091493,
                 "path" => NULL
             ],
             "schema" => [
@@ -176,6 +176,38 @@ return [
                                         ]
                                     ],
                                     "isOperator" => FALSE
+                                ],
+                                [
+                                    "attributes" => [
+                                        "attribute" => "description",
+                                        "label" => "description",
+                                        "dataType" => "textarea",
+                                        "layout" => [
+                                            "fieldtype" => "textarea",
+                                            "width" => "",
+                                            "height" => "",
+                                            "maxLength" => NULL,
+                                            "showCharCount" => FALSE,
+                                            "excludeFromSearchIndex" => FALSE,
+                                            "queryColumnType" => "longtext",
+                                            "columnType" => "longtext",
+                                            "name" => "description",
+                                            "title" => "description",
+                                            "tooltip" => "",
+                                            "mandatory" => FALSE,
+                                            "noteditable" => FALSE,
+                                            "index" => FALSE,
+                                            "locked" => FALSE,
+                                            "style" => "",
+                                            "permissions" => NULL,
+                                            "datatype" => "data",
+                                            "relationType" => FALSE,
+                                            "invisible" => FALSE,
+                                            "visibleGridView" => FALSE,
+                                            "visibleSearch" => FALSE
+                                        ]
+                                    ],
+                                    "isOperator" => FALSE
                                 ]
                             ]
                         ]
@@ -224,7 +256,7 @@ return [
                                         "label" => "Date",
                                         "type" => "operator",
                                         "class" => "DateFormatter",
-                                        "format" => "H:i:s",
+                                        "format" => "c",
                                         "childs" => [
                                             [
                                                 "isOperator" => FALSE,
@@ -241,7 +273,7 @@ return [
                                             ]
                                         ]
                                     ],
-                                    "key" => "#60b946bac65b8"
+                                    "key" => "#60be690c77f51"
                                 ],
                                 [
                                     "attributes" => [

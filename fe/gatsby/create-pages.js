@@ -58,9 +58,7 @@ _.each(edgesPage, (edge) => {
         path: edge.node.slug,
         component: path.resolve('./src/templates/page-template.js'),
         context: { 
-          slug:  edge.node.slug,
-          filter: `{"slug":"${edge.node.slug}"}`,
-          id: `{"id":"${edge.node.id}"}`
+          id: parseInt(edge.node.id)
         }
       });
     }});
@@ -94,9 +92,7 @@ _.each(edgesPost, (edge) => {
         path: edge.node.slug,
         component: path.resolve('./src/templates/post-template.js'),
         context: { 
-          slug:  edge.node.slug,
-          filter: `{"slug":"${edge.node.slug}"}`,
-          id: `{"id":"${edge.node.id}"}`
+          id: parseInt(edge.node.id)
         }
       });
     }});

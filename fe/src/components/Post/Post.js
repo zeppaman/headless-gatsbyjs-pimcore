@@ -9,15 +9,15 @@ import Tags from './Tags';
 import styles from './Post.module.scss';
 
 
-const Post = ( post ) => {
-  console.log(post);
+const Post = ( data ) => {
+const post= data.post;
+
   const { Text: html } = post;
   const { slug } = post;
   const { tags, Title: title} = post;
 
-  const date=new Date(post.Date);
-
-  console.log(date);
+  const date=new Date(post.date);
+  console.log(tags);
 
   return (
     <div className={styles['post']}>
@@ -29,7 +29,7 @@ const Post = ( post ) => {
 
       <div className={styles['post__footer']}>
         <Meta date={date} />
-        {/* { tags && <Tags tags={tags}  />} */}
+        <Tags tags={tags}  />
         <Author />
       </div>
 

@@ -5,18 +5,21 @@ import Layout from '../components/Layout';
 import Sidebar from '../components/Sidebar';
 import Page from '../components/Page';
 import { useSiteMetadata } from '../hooks';
-import type { MarkdownRemark } from '../types';
 
 
 
 
 const PageTemplate = ({ data} ) => {
+
+  console.info(data);
+
   const  page=data.pimcore.getPage;
+
   const { title: siteTitle, subtitle: siteSubtitle } = useSiteMetadata();
 
   const { 
     Title: pageTitle,
-    description:metaDescription,   
+    description: metaDescription,   
     Body: pageBody
   } =page;
 
@@ -36,13 +39,16 @@ export const query = graphql`
 query PageBySlug($id: Int!){
   pimcore {
     getPage(id: $id) {
-          id
-          Title
-          Body
-          slug
+          id,
+          Title,
+          Body,
+          slug,
           socialImage {
             fullpath
-          }
+          },
+          published,
+          classname,
+          description
         }
       }
 }
