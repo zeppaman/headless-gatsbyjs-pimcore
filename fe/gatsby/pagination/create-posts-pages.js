@@ -7,15 +7,18 @@ module.exports = async (graphql, actions) => {
   const { createPage } = actions;
 
   const result = await graphql(`
-    {
-      allMarkdownRemark(
-        filter: { frontmatter: { template: { eq: "post" }, draft: { ne: true } } }
-      ) { totalCount }
+  {
+    pimcore {
+      getPostListing {
+        totalCount
+      }
     }
+  }
+  
   `);
 
   const { postsPerPage } = siteConfig;
-  const numPages = Math.ceil(result.data.allMarkdownRemark.totalCount / postsPerPage);
+  const numPages = Math.ceil(result.data.pimcore.getPostListing.totalCount / postsPerPage);
 
   for (let i = 0; i < numPages; i += 1) {
     createPage({

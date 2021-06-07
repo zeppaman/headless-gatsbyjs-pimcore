@@ -11,6 +11,7 @@ Fields Summary:
 - socialImage [image]
 - slug [input]
 - description [textarea]
+- home [booleanSelect]
 */ 
 
 
@@ -19,7 +20,7 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
    'name' => 'Page',
    'description' => '',
    'creationDate' => 0,
-   'modificationDate' => 1623090204,
+   'modificationDate' => 1623093743,
    'userOwner' => 2,
    'userModification' => 2,
    'parentClass' => '',
@@ -188,6 +189,49 @@ return Pimcore\Model\DataObject\ClassDefinition::__set_state(array(
              'excludeFromSearchIndex' => false,
              'name' => 'description',
              'title' => 'description',
+             'tooltip' => '',
+             'mandatory' => false,
+             'noteditable' => false,
+             'index' => false,
+             'locked' => NULL,
+             'style' => '',
+             'permissions' => NULL,
+             'datatype' => 'data',
+             'relationType' => false,
+             'invisible' => false,
+             'visibleGridView' => false,
+             'visibleSearch' => false,
+             'blockedVarsForExport' => 
+            array (
+            ),
+          )),
+          5 => 
+          Pimcore\Model\DataObject\ClassDefinition\Data\BooleanSelect::__set_state(array(
+             'fieldtype' => 'booleanSelect',
+             'yesLabel' => 'yes',
+             'noLabel' => 'no',
+             'emptyLabel' => 'empty',
+             'options' => 
+            array (
+              0 => 
+              array (
+                'key' => 'empty',
+                'value' => 0,
+              ),
+              1 => 
+              array (
+                'key' => 'yes',
+                'value' => 1,
+              ),
+              2 => 
+              array (
+                'key' => 'no',
+                'value' => -1,
+              ),
+            ),
+             'width' => '',
+             'name' => 'home',
+             'title' => 'home',
              'tooltip' => '',
              'mandatory' => false,
              'noteditable' => false,

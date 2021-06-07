@@ -12,7 +12,7 @@ return [
                 "name" => "headless",
                 "description" => "",
                 "sqlObjectCondition" => "",
-                "modificationDate" => 1623091493,
+                "modificationDate" => 1623094303,
                 "path" => NULL
             ],
             "schema" => [
@@ -193,6 +193,51 @@ return [
                                             "columnType" => "longtext",
                                             "name" => "description",
                                             "title" => "description",
+                                            "tooltip" => "",
+                                            "mandatory" => FALSE,
+                                            "noteditable" => FALSE,
+                                            "index" => FALSE,
+                                            "locked" => FALSE,
+                                            "style" => "",
+                                            "permissions" => NULL,
+                                            "datatype" => "data",
+                                            "relationType" => FALSE,
+                                            "invisible" => FALSE,
+                                            "visibleGridView" => FALSE,
+                                            "visibleSearch" => FALSE
+                                        ]
+                                    ],
+                                    "isOperator" => FALSE
+                                ],
+                                [
+                                    "attributes" => [
+                                        "attribute" => "home",
+                                        "label" => "home",
+                                        "dataType" => "booleanSelect",
+                                        "layout" => [
+                                            "fieldtype" => "booleanSelect",
+                                            "yesLabel" => "yes",
+                                            "noLabel" => "no",
+                                            "emptyLabel" => "empty",
+                                            "options" => [
+                                                [
+                                                    "key" => "empty",
+                                                    "value" => 0
+                                                ],
+                                                [
+                                                    "key" => "yes",
+                                                    "value" => 1
+                                                ],
+                                                [
+                                                    "key" => "no",
+                                                    "value" => -1
+                                                ]
+                                            ],
+                                            "width" => "",
+                                            "queryColumnType" => "tinyint(1) null",
+                                            "columnType" => "tinyint(1) null",
+                                            "name" => "home",
+                                            "title" => "home",
                                             "tooltip" => "",
                                             "mandatory" => FALSE,
                                             "noteditable" => FALSE,

@@ -100,7 +100,7 @@ _.each(edgesPost, (edge) => {
   // // Feeds
   // await createTagsPages(graphql, actions);
   // await createCategoriesPages(graphql, actions);
-  // await createPostsPages(graphql, actions);
+  await createPostsPages(graphql, actions);
 };
 
 module.exports = createPages;

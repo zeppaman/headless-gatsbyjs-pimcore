@@ -9,10 +9,12 @@ import { useSiteMetadata } from '../../hooks';
 
 type Props = {
   isIndex?: boolean,
+  menu:[]
 };
 
-const Sidebar = ({ isIndex }: Props) => {
-  const { author, copyright, menu } = useSiteMetadata();
+const Sidebar = ({ isIndex,menu }: Props) => {
+  const { author, copyright} = useSiteMetadata();
+  
 
   return (
     <div className={styles['sidebar']}>
@@ -27,3 +29,4 @@ const Sidebar = ({ isIndex }: Props) => {
 };
 
 export default Sidebar;
+
