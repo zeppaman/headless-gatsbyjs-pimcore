@@ -31,6 +31,7 @@ services:
     image: pimcore/pimcore:PHP8.0-apache
     volumes:
       - ./be:/var/www/html:cached
+      - ./be/docker/dump:/docker-entrypoint-initdb.d
     ports:
       - 80:80
       - 443:443
