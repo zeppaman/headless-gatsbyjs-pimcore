@@ -41,7 +41,7 @@ const Menu = ({ menu }: Props) => {
           {menu.map((item) => (
             <li className={styles['menu__list-item']} key={item.node.slug}>
               <Link
-                to={item.node.slug}
+                to={"/"+item.node.slug}
                 className={styles['menu__list-item-link']}
                 activeClassName={styles['menu__list-item-link--active']}
               >

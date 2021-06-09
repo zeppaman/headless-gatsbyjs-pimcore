@@ -22,7 +22,7 @@ return (
          
          
 
-         <Link to={"/tags"+tags[key].path} className={styles['tags__list-item-link']}>
+         <Link to={"/tag"+tags[key].path} className={styles['tags__list-item-link']}>
          {tags[key].name}
         </Link> 
         </li>

@@ -7,10 +7,6 @@ import Feed from '../components/Feed';
 import Page from '../components/Page';
 import { useSiteMetadata } from '../hooks';
 
-type Props = {
-  data: AllMarkdownRemark,
-  pageContext: PageContext
-};
 
 const TagTemplate = ({data, pageContext} ) => {
   const { title: siteTitle, subtitle: siteSubtitle } = useSiteMetadata();
