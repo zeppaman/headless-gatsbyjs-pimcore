@@ -1,23 +1,47 @@
 // @flow strict
 import { useStaticQuery, graphql } from 'gatsby';
+const _ = require('lodash');
 
 const useTagsList = () => {
-  const { allMarkdownRemark } = useStaticQuery(
+    
+  let tags=[];
+
+
+  const { pimcore } = useStaticQuery(
     graphql`
-      query TagsListQuery {
-        allMarkdownRemark(
-          filter: { frontmatter: { template: { eq: "post" }, draft: { ne: true } } }
-        ) {
-          group(field: frontmatter___tags) {
-            fieldValue
-            totalCount
+    {
+      pimcore {
+        getPostListing {
+          edges {
+            node {
+              slug,
+              classname,
+              id,
+              tags
+              {
+                id
+                name
+                path
+              }
+            }
           }
         }
       }
-    `
-  );
+    }
+    `);
 
-  return allMarkdownRemark.group;
+   
+  const edgesPost  = pimcore.getPostListing.edges;
+
+
+    _.each(edgesPost, (edge) => {       
+        tags=[...tags,...edge.node.tags];     
+    });
+
+    tags=[...new Set(tags)];
+
+    return tags;
+
 };
 
 export default useTagsList;

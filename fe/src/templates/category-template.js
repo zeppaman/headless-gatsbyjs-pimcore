@@ -7,67 +7,66 @@ import Feed from '../components/Feed';
 import Page from '../components/Page';
 import Pagination from '../components/Pagination';
 import { useSiteMetadata } from '../hooks';
-import type { PageContext, AllMarkdownRemark } from '../types';
 
 type Props = {
-  data: AllMarkdownRemark,
-  pageContext: PageContext
+  data:{}
 };
 
-const CategoryTemplate = ({ data, pageContext }: Props) => {
+const CategoryTemplate = ({ data }: Props) => {
+  console.log(data);
   const { title: siteTitle, subtitle: siteSubtitle } = useSiteMetadata();
 
-  const {
-    category,
-    currentPage,
-    prevPagePath,
-    nextPagePath,
-    hasPrevPage,
-    hasNextPage,
-  } = pageContext;
-
-  const { edges } = data.allMarkdownRemark;
-  const pageTitle = currentPage > 0 ? `${category} - Page ${currentPage} - ${siteTitle}` : `${category} - ${siteTitle}`;
+  const { edges } = data.pimcore.getPostListing;
+  const  category  = data.pimcore.getCategory.description;
+  const pageTitle =  `${category} - ${siteTitle}`;
 
   return (
     <Layout title={pageTitle} description={siteSubtitle}>
       <Sidebar />
       <Page title={category}>
-        <Feed edges={edges} />
-        <Pagination
-          prevPagePath={prevPagePath}
-          nextPagePath={nextPagePath}
-          hasPrevPage={hasPrevPage}
-          hasNextPage={hasNextPage}
-        />
+        {category}
+        <h2>Post</h2>
+        <Feed edges={edges} />        
       </Page>
     </Layout>
   );
 };
 
 export const query = graphql`
-  query CategoryPage($category: String, $postsLimit: Int!, $postsOffset: Int!) {
-    allMarkdownRemark(
-        limit: $postsLimit,
-        skip: $postsOffset,
-        filter: { frontmatter: { category: { eq: $category }, template: { eq: "post" }, draft: { ne: true } } },
-        sort: { order: DESC, fields: [frontmatter___date] }
-      ){
+  query CategoryPage($id: Int!) {
+   pimcore {
+    getCategory(id: $id) {
+      classname
+      description
+      fullpath
+      html
+      id
+      slug
+      socialImage {
+        fullpath
+      }
+    }
+
+    getPostListing {
       edges {
         node {
-          fields {
-            categorySlug
-            slug
-          }
-          frontmatter {
-            date
-            description
-            category
-            title
+          Text
+          Title
+          date
+          description
+          id
+          slug
+          tags {
+            id
+            name
+            path
           }
         }
       }
     }
+ 
+  
+  }
   }
 `;
 

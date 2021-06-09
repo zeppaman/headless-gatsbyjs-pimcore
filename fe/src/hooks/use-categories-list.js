@@ -2,22 +2,28 @@
 import { useStaticQuery, graphql } from 'gatsby';
 
 const useCategoriesList = () => {
-  const { allMarkdownRemark } = useStaticQuery(
+  const { pimcore } = useStaticQuery(
     graphql`
       query CategoriesListQuery {
-        allMarkdownRemark(
-          filter: { frontmatter: { template: { eq: "post" }, draft: { ne: true } } }
-        ) {
-          group(field: frontmatter___category) {
-            fieldValue
-            totalCount
+        pimcore {
+          getCategoryListing {
+            edges {
+              node {
+                classname
+                description
+                html
+                id
+                slug
+                
+              }
+            }
           }
         }
       }
     `
   );
 
-  return allMarkdownRemark.group;
+  return pimcore.getCategoryListing.edges.map(x=>x.node);
 };
 
 export default useCategoriesList;

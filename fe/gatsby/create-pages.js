@@ -2,8 +2,7 @@
 
 const path = require('path');
 const _ = require('lodash');
-const createCategoriesPages = require('./pagination/create-categories-pages.js');
-const createTagsPages = require('./pagination/create-tags-pages.js');
+
 const createPostsPages = require('./pagination/create-posts-pages.js');
 
 const createPages = async ({ graphql, actions }) => {
@@ -73,7 +72,13 @@ _.each(edgesPage, (edge) => {
           node {
             slug,
             classname,
-            id
+            id,
+            tags
+            {
+              id
+              name
+              path
+            }
           }
         }
       }
@@ -81,11 +86,16 @@ _.each(edgesPage, (edge) => {
   }
   `);
 
+let tags=[];
 const edgesPost  = resultPost.data.pimcore.getPostListing.edges;
-console.info(edgesPost);
+
 
 _.each(edgesPost, (edge) => {
     if (_.get(edge, 'node.classname') === 'Post') {
+      console.log(edge.node.tags);
+      tags=[...tags,...edge.node.tags]
+      console.info(tags);
+
       console.info(edge);
       console.info("CREATING Post "+edge.node.slug)
       createPage({
@@ -97,9 +107,65 @@ _.each(edgesPost, (edge) => {
       });
     }});
 
-  // // Feeds
-  // await createTagsPages(graphql, actions);
-  // await createCategoriesPages(graphql, actions);
+
+      // Pages
+  const resultCat = await graphql(`
+  {
+    pimcore {
+      getCategoryListing {
+        edges {
+          node {
+            classname
+            description
+            html
+            id
+            slug
+          }
+        }
+      }
+    }
+  }
+  `);
+
+const edgesCat  = resultCat.data.pimcore.getCategoryListing.edges;
+//console.info(edgesPost);
+
+_.each(edgesCat, (edge) => {
+    if (_.get(edge, 'node.classname') === 'Category') {
+      console.info(edge);
+      console.info("CREATING Category "+edge.node.slug)
+      createPage({
+        path: "/category/"+edge.node.slug,
+        component: path.resolve('./src/templates/category-template.js'),
+        context: { 
+          id: parseInt(edge.node.id)
+        }
+      });
+    }});
+
+ 
+  tags=[...new Set(tags)];
+
+
+  
+_.each(tags, (edge) => {
+ 
+    
+
+    console.info(edge);
+    console.info("CREATING Tag "+edge.path)
+    createPage({
+      path: "/tag"+edge.path,
+      component: path.resolve('./src/templates/tag-template.js'),
+      context: { 
+        slug: edge.path,
+        name: edge.name
+      }
+    });
+  });
+
+  console.log(tags);
+
   await createPostsPages(graphql, actions);
 };
 

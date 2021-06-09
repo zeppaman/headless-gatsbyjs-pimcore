@@ -12,7 +12,7 @@ return [
                 "name" => "headless",
                 "description" => "",
                 "sqlObjectCondition" => "",
-                "modificationDate" => 1623094303,
+                "modificationDate" => 1623252890,
                 "path" => NULL
             ],
             "schema" => [
@@ -547,6 +547,182 @@ return [
                                             "name" => "classname",
                                             "datatype" => "data",
                                             "fieldtype" => "system"
+                                        ]
+                                    ],
+                                    "isOperator" => FALSE
+                                ]
+                            ]
+                        ]
+                    ],
+                    "Category" => [
+                        "id" => "Category",
+                        "name" => "Category",
+                        "columnConfig" => [
+                            "columns" => [
+                                [
+                                    "attributes" => [
+                                        "attribute" => "fullpath",
+                                        "label" => "fullpath",
+                                        "dataType" => "system",
+                                        "layout" => [
+                                            "title" => "fullpath",
+                                            "name" => "fullpath",
+                                            "datatype" => "data",
+                                            "fieldtype" => "system"
+                                        ]
+                                    ],
+                                    "isOperator" => FALSE
+                                ],
+                                [
+                                    "attributes" => [
+                                        "attribute" => "id",
+                                        "label" => "id",
+                                        "dataType" => "system",
+                                        "layout" => [
+                                            "title" => "id",
+                                            "name" => "id",
+                                            "datatype" => "data",
+                                            "fieldtype" => "system"
+                                        ]
+                                    ],
+                                    "isOperator" => FALSE
+                                ],
+                                [
+                                    "attributes" => [
+                                        "attribute" => "slug",
+                                        "label" => "slug",
+                                        "dataType" => "input",
+                                        "layout" => [
+                                            "fieldtype" => "input",
+                                            "width" => "",
+                                            "defaultValue" => NULL,
+                                            "queryColumnType" => "varchar",
+                                            "columnType" => "varchar",
+                                            "columnLength" => 190,
+                                            "regex" => "",
+                                            "unique" => TRUE,
+                                            "showCharCount" => FALSE,
+                                            "name" => "slug",
+                                            "title" => "slug",
+                                            "tooltip" => "",
+                                            "mandatory" => FALSE,
+                                            "noteditable" => FALSE,
+                                            "index" => TRUE,
+                                            "locked" => FALSE,
+                                            "style" => "",
+                                            "permissions" => NULL,
+                                            "datatype" => "data",
+                                            "relationType" => FALSE,
+                                            "invisible" => FALSE,
+                                            "visibleGridView" => FALSE,
+                                            "visibleSearch" => FALSE
+                                        ]
+                                    ],
+                                    "isOperator" => FALSE
+                                ],
+                                [
+                                    "attributes" => [
+                                        "attribute" => "classname",
+                                        "label" => "classname",
+                                        "dataType" => "system",
+                                        "layout" => [
+                                            "title" => "classname",
+                                            "name" => "classname",
+                                            "datatype" => "data",
+                                            "fieldtype" => "system"
+                                        ]
+                                    ],
+                                    "isOperator" => FALSE
+                                ],
+                                [
+                                    "attributes" => [
+                                        "attribute" => "description",
+                                        "label" => "description",
+                                        "dataType" => "textarea",
+                                        "layout" => [
+                                            "fieldtype" => "textarea",
+                                            "width" => "",
+                                            "height" => "",
+                                            "maxLength" => NULL,
+                                            "showCharCount" => FALSE,
+                                            "excludeFromSearchIndex" => FALSE,
+                                            "queryColumnType" => "longtext",
+                                            "columnType" => "longtext",
+                                            "name" => "description",
+                                            "title" => "description",
+                                            "tooltip" => "",
+                                            "mandatory" => FALSE,
+                                            "noteditable" => FALSE,
+                                            "index" => FALSE,
+                                            "locked" => FALSE,
+                                            "style" => "",
+                                            "permissions" => NULL,
+                                            "datatype" => "data",
+                                            "relationType" => FALSE,
+                                            "invisible" => FALSE,
+                                            "visibleGridView" => FALSE,
+                                            "visibleSearch" => FALSE
+                                        ]
+                                    ],
+                                    "isOperator" => FALSE
+                                ],
+                                [
+                                    "attributes" => [
+                                        "attribute" => "html",
+                                        "label" => "html",
+                                        "dataType" => "wysiwyg",
+                                        "layout" => [
+                                            "fieldtype" => "wysiwyg",
+                                            "width" => "",
+                                            "height" => "",
+                                            "queryColumnType" => "longtext",
+                                            "columnType" => "longtext",
+                                            "toolbarConfig" => "",
+                                            "excludeFromSearchIndex" => FALSE,
+                                            "name" => "html",
+                                            "title" => "html",
+                                            "tooltip" => "",
+                                            "mandatory" => FALSE,
+                                            "noteditable" => FALSE,
+                                            "index" => FALSE,
+                                            "locked" => FALSE,
+                                            "style" => "",
+                                            "permissions" => NULL,
+                                            "datatype" => "data",
+                                            "relationType" => FALSE,
+                                            "invisible" => FALSE,
+                                            "visibleGridView" => FALSE,
+                                            "visibleSearch" => FALSE
+                                        ]
+                                    ],
+                                    "isOperator" => FALSE
+                                ],
+                                [
+                                    "attributes" => [
+                                        "attribute" => "socialImage",
+                                        "label" => "socialImage",
+                                        "dataType" => "image",
+                                        "layout" => [
+                                            "fieldtype" => "image",
+                                            "queryColumnType" => "int(11)",
+                                            "columnType" => "int(11)",
+                                            "name" => "socialImage",
+                                            "title" => "socialImage",
+                                            "tooltip" => "",
+                                            "mandatory" => FALSE,
+                                            "noteditable" => FALSE,
+                                            "index" => FALSE,
+                                            "locked" => FALSE,
+                                            "style" => "",
+                                            "permissions" => NULL,
+                                            "datatype" => "data",
+                                            "relationType" => FALSE,
+                                            "invisible" => FALSE,
+                                            "visibleGridView" => FALSE,
+                                            "visibleSearch" => FALSE,
+                                            "width" => "",
+                                            "height" => "",
+                                            "uploadPath" => ""
                                         ]
                                     ],
                                     "isOperator" => FALSE
